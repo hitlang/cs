@@ -1,0 +1,36 @@
+-   config:
+        name: testcase description
+        variables: {}
+-   test:
+        name: /ecmps/login
+        request:
+            headers:
+                Authorization: 'null'
+                Content-Type: application/json;charset=UTF-8
+                Sec-Fetch-Dest: empty
+                Sec-Fetch-Mode: cors
+                Sec-Fetch-Site: same-site
+                User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+                    (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36
+                appid: 1514e1d61686438f95fa46f19070c126
+            json:
+                password: hbc23687
+                phoneNumber: '15527060286'
+            method: POST
+            url: https://backstageservices.dreawer.com/ecmps/login
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=UTF-8
+        -   eq:
+            - content.code
+            - '000000'
+        -   eq:
+            - content.checkPoint
+            - null
+        -   eq:
+            - content.comment
+            - Completed successfully

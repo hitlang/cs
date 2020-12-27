@@ -1,0 +1,111 @@
+- config:
+    name: testcase description
+    base_url: https://backstageservices.dreawer.com
+    variables:
+      appid: 1514e1d61686438f95fa46f19070c126
+- test:
+    name: appx会员登录
+    variables:
+      phone_number: '15527060286'
+    request:
+      headers:
+        Authorization: 'null'
+        Content-Type: application/json;charset=UTF-8
+        Sec-Fetch-Dest: empty
+        Sec-Fetch-Mode: cors
+        Sec-Fetch-Site: same-site
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36
+        appid: $appid
+      json:
+        password: hbc23687
+        phoneNumber: $phone_number
+      method: POST
+      url: /ecmps/login
+    extract:
+      token: content.data.token
+    validate:
+      - eq:
+          - status_code
+          - 200
+      - eq:
+          - headers.Content-Type
+          - application/json;charset=UTF-8
+      - eq:
+          - content.code
+          - '000000'
+      - eq:
+          - content.checkPoint
+          - null
+      - eq:
+          - content.comment
+          - Completed successfully
+- test:
+    name: 获取登录访问令牌
+    request:
+      headers:
+        Authorization: $token
+        Sec-Fetch-Dest: empty
+        Sec-Fetch-Mode: cors
+        Sec-Fetch-Site: same-site
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36
+        appid: $appid
+      method: GET
+      params:
+        appId: $appid
+      url: /ecmps/getUserToken
+
+    extract:
+      access_token: content.data.token
+
+
+    validate:
+      - eq:
+          - status_code
+          - 200
+      - eq:
+          - headers.Content-Type
+          - application/json;charset=UTF-8
+      - eq:
+          - content.code
+          - '000000'
+      - eq:
+          - content.checkPoint
+          - bsmc.null
+      - eq:
+          - content.comment
+          - Completed successfully
+
+- test:
+    name: 退出
+    request:
+      headers:
+        Authorization: $access_token
+        Sec-Fetch-Dest: empty
+        Sec-Fetch-Mode: cors
+        Sec-Fetch-Site: same-site
+        User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+          (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36
+        appid: 1514e1d61686438f95fa46f19070c126
+      method: GET
+      url: /bsmc/user/logout
+    validate:
+      - eq:
+          - status_code
+          - 200
+      - eq:
+          - headers.Content-Type
+          - application/json;charset=UTF-8
+      - eq:
+          - content.code
+          - '000000'
+      - eq:
+          - content.checkPoint
+          - bsmc.null
+      - eq:
+          - content.comment
+          - Completed successfully
+      - eq:
+          - content.data
+          - null

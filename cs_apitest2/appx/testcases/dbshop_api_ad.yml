@@ -1,0 +1,21 @@
+- config:
+    name: 内置广告接口
+    base_url: http://localhost/dbshop/Jsonapi
+    variables:
+      apikey: ded63ea2d7bfc17264b83931b9045014
+- test:
+    name: 测试用例1
+    request:
+      params:
+        apikey: $apikey
+        ad_code: $ad_code
+      method: get
+      url: /specialAd
+    validate:
+      - eq:
+          - status_code
+          - 200
+      - eq:
+          - content.result.dbapi_ad_code
+          - $ad_code
+

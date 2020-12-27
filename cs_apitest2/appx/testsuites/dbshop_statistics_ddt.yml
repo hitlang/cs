@@ -1,0 +1,7 @@
+config:
+    name: testcase description
+testcases:
+    商品收藏统计:
+        testcase: testcases/dbshop_statistics.yml
+        parameters:
+            username-password: ${P(data/favorite_statistics.csv)}

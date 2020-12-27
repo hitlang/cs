@@ -1,0 +1,7 @@
+config:
+    name: 内置广告测试套件
+testcases:
+    内置广告测试用例:
+        testcase: testcases/dbshop_api_ad.yml
+        parameters:
+            ad_code: ["example0","example1","example2","example3"]

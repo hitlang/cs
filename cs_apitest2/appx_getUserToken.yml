@@ -1,0 +1,34 @@
+-   config:
+        name: testcase description
+        variables: {}
+-   test:
+        name: /ecmps/getUserToken
+        request:
+            headers:
+                Authorization: 145ffb3237144ec1a0c790f55f60b809
+                Sec-Fetch-Dest: empty
+                Sec-Fetch-Mode: cors
+                Sec-Fetch-Site: same-site
+                User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+                    (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36
+                appid: 1514e1d61686438f95fa46f19070c126
+            method: GET
+            params:
+                appId: 1514e1d61686438f95fa46f19070c126
+            url: https://backstageservices.dreawer.com/ecmps/getUserToken
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=UTF-8
+        -   eq:
+            - content.code
+            - '000000'
+        -   eq:
+            - content.checkPoint
+            - bsmc.null
+        -   eq:
+            - content.comment
+            - Completed successfully

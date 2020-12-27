@@ -1,0 +1,63 @@
+[
+    {
+        "config": {
+            "name": "testcase description",
+            "variables": {}
+        }
+    },
+    {
+        "test": {
+            "name": "/bsmc/user/logout",
+            "request": {
+                "url": "https://backstageservices.dreawer.com/bsmc/user/logout",
+                "method": "GET",
+                "headers": {
+                    "Authorization": "72f18a772af241f99e845e23a161b0b6",
+                    "appid": "1514e1d61686438f95fa46f19070c126",
+                    "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
+                    "Sec-Fetch-Site": "same-site",
+                    "Sec-Fetch-Mode": "cors",
+                    "Sec-Fetch-Dest": "empty"
+                }
+            },
+            "validate": [
+                {
+                    "eq": [
+                        "status_code",
+                        200
+                    ]
+                },
+                {
+                    "eq": [
+                        "headers.Content-Type",
+                        "application/json;charset=UTF-8"
+                    ]
+                },
+                {
+                    "eq": [
+                        "content.code",
+                        "000000"
+                    ]
+                },
+                {
+                    "eq": [
+                        "content.checkPoint",
+                        "bsmc.null"
+                    ]
+                },
+                {
+                    "eq": [
+                        "content.comment",
+                        "Completed successfully"
+                    ]
+                },
+                {
+                    "eq": [
+                        "content.data",
+                        null
+                    ]
+                }
+            ]
+        }
+    }
+]
